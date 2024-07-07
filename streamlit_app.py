@@ -9,11 +9,14 @@ from openai import OpenAI
 import pandas as pd
 import streamlit as st
 
-# Load environment variables from .env file
+# Load environment variables from .env file (useful for local development)
 load_dotenv()
 
 # Initialize OpenAI client with API key from environment variables
 api_key = os.getenv('OPENAI_API_KEY')
+if not api_key:
+    st.error("OpenAI API key is missing. Please set it in the environment variables.")
+
 client = OpenAI(api_key=api_key)
 
 embedder = SentenceTransformer('all-MiniLM-L6-v2')
